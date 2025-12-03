@@ -1,1 +1,10 @@
--e "#!/usr/bin/env bash\nset -o errexit\npip install -r requirements.txt\npython manage.py collectstatic --no-input\npython manage.py migrate" 
+#!/usr/bin/env bash
+set -o errexit
+
+echo "=== INSTALANDO DEPENDENCIAS ==="
+pip install -r requirements.txt
+
+echo "=== APLICANDO MIGRACIONES ==="
+python manage.py migrate
+
+echo "=== BUILD COMPLETADO ==="
