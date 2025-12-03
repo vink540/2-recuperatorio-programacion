@@ -1,4 +1,1 @@
-#!/usr/bin/env bash
-pip install -r requirements.txt
-python manage.py collectstatic --noinput
-python manage.py migrate
+-e "#!/usr/bin/env bash\nset -o errexit\npip install -r requirements.txt\npython manage.py collectstatic --no-input\npython manage.py migrate" 
