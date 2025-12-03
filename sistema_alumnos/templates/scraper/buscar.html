@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-center mt-16 px-4">
+    <div class="bg-gray-900 p-10 rounded-2xl shadow-2xl w-full max-w-xl border border-gray-700">
+
+        <h2 class="text-3xl font-bold mb-8 text-purple-400 text-center">
+            Scraping Wikipedia
+        </h2>
+
+        <!-- BOTÓN VOLVER AL INICIO -->
+        <a href="{% url 'alumnos:dashboard' %}" 
+           class="text-sm text-purple-300 hover:text-purple-400 underline mb-4 block">
+            ← Volver al inicio
+        </a>
+
+        <form method="POST" class="space-y-5">
+            {% csrf_token %}
+
+            <input
+                type="text"
+                name="palabra_clave"
+                placeholder="Buscar en Wikipedia..."
+                class="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 
+                       focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
+                required
+            >
+
+            <label class="flex items-center gap-2 text-gray-300 text-sm">
+                <input type="checkbox" name="enviar_email" value="1" class="scale-125">
+                Enviar resultados por email
+            </label>
+
+            <button type="submit"
+                class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg transition shadow-md">
+                Buscar
+            </button>
+        </form>
+
+        {% if resultados %}
+        <div class="mt-8 bg-gray-800 p-5 rounded-lg text-gray-200 border border-gray-700">
+            <h3 class="text-xl font-semibold mb-4 text-purple-300">Resultados:</h3>
+
+            <ul class="space-y-3">
+                {% for clave, valor in resultados %}
+                    <li class="border-b border-gray-700 pb-2">
+                        <strong class="text-purple-300">{{ clave }}:</strong> {{ valor }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% for message in messages %}
+            <div class="mt-6 p-3 rounded-lg
+                {% if message.tags == 'error' %} bg-red-700
+                {% elif message.tags == 'success' %} bg-green-700
+                {% else %} bg-gray-700 {% endif %}
+                text-white text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

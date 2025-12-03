@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5" style="max-width: 450px;">
+  <div class="glass">
+      <h3 class="mb-3">Iniciar sesión</h3>
+
+      <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+
+          <button class="btn btn-main w-100 mt-3">Ingresar</button>
+      </form>
+
+      <p class="mt-3 text-center">
+        ¿No tienes cuenta?
+        <a href="{% url 'accounts:register' %}">Crear una</a>
+      </p>
+  </div>
+</div>
+
+{% endblock %}

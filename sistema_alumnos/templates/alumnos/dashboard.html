@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Mis alumnos</h2>
+
+    <div>
+      <a class="btn btn-dark me-2" href="{% url 'scraper:buscar' %}">
+        🔍 Scraper
+      </a>
+
+      <a class="btn btn-primary me-2" href="{% url 'alumnos:crear_alumno' %}">
+        ➕ Crear alumno
+      </a>
+
+      <a class="btn btn-secondary" href="{% url 'alumnos:export_csv' %}">
+        📄 Exportar CSV
+      </a>
+    </div>
+  </div>
+
+  <table class="table table-striped shadow-sm">
+    <thead class="table-dark">
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Nota</th>
+        <th class="text-center">Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for a in alumnos %}
+      <tr>
+        <td>{{ a.nombre }}</td>
+        <td>{{ a.apellido }}</td>
+        <td>{{ a.nota }}</td>
+
+        <td class="text-center">
+
+          <!-- Editar -->
+          <a class="btn btn-sm btn-warning me-1"
+             href="{% url 'alumnos:editar_alumno' a.pk %}">
+            ✏️ Editar
+          </a>
+
+          <!-- PDF -->
+          <a class="btn btn-sm btn-success me-1"
+             href="{% url 'alumnos:generar_pdf' a.pk %}">
+            📄 PDF
+          </a>
+
+          <!-- Eliminar -->
+          <a class="btn btn-sm btn-danger"
+             href="{% url 'alumnos:eliminar_alumno' a.pk %}">
+            🗑️ Borrar
+          </a>
+
+        </td>
+      </tr>
+
+      {% empty %}
+      <tr>
+        <td colspan="4" class="text-center">No hay alumnos aún.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

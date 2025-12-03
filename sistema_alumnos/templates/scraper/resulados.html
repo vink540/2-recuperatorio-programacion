@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4" style="max-width: 700px;">
+
+    <div class="glass">
+        <h3 class="mb-3">Resultados del scraping</h3>
+
+        <ul>
+          {% for r in resultados %}
+            <li><strong>{{ r.tipo }}:</strong> {{ r.texto }}</li>
+          {% endfor %}
+        </ul>
+
+        {% if enviado %}
+          <p class="text-success mt-3">Correo enviado correctamente ✔</p>
+        {% else %}
+          <p class="text-danger mt-3">No se pudo enviar el correo ❌</p>
+        {% endif %}
+
+        <a class="btn btn-main w-100 mt-3" href="{% url 'scraper:buscar' %}">
+            Volver a buscar
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
