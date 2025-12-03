@@ -138,3 +138,5 @@ DEFAULT_FROM_EMAIL = 'sistema@alumnos.com'
 # otras cosas habituales
 LOGIN_REDIRECT_URL = "alumnos:dashboard"
 LOGOUT_REDIRECT_URL = "accounts:login"
+
+CSRF_TRUSTED_ORIGINS=['http://two-recuperatorio-programacion.onrender.com']
